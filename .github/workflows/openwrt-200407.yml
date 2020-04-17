@@ -185,7 +185,7 @@ jobs:
           # CONFIG_PACKAGE_luci-app-usb-printer=y
           CONFIG_PACKAGE_luci-app-dockerman=y
           CONFIG_PACKAGE_luci-app-unblockmusic=y
-          CONFIG_PACKAGE_luci-app-cpufreq=y
+          # CONFIG_PACKAGE_luci-app-cpufreq=y
           CONFIG_PACKAGE_luci-app-airplay2=y
           CONFIG_PACKAGE_luci-app-music-remote-center=y
           EOF
@@ -236,5 +236,5 @@ jobs:
       - name : Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware 200413
+          name: OpenWrt firmware 200417
           path: bin/targets
