@@ -241,5 +241,5 @@ jobs:
       - name : Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware 200417
+          name: OpenWrt firmware 200524
           path: bin/targets
