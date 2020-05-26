@@ -71,6 +71,11 @@ jobs:
           cd openwrt-packages
           git clone https://github.com/rikkivip/openwrt-package.git
           
+          cd package
+          mkdir openwrt-packages
+          cd openwrt-packages
+          git clone https://github.com/destan19/OpenAppFilter.git
+          
       - name: Update feeds
         run: |
           git pull
@@ -185,14 +190,15 @@ jobs:
           CONFIG_PACKAGE_luci-app-netdata=y
           CONFIG_PACKAGE_luci-app-smartdns=y
           CONFIG_PACKAGE_luci-app-watchcat=y
-          # CONFIG_PACKAGE_luci-app-transmission=y
+          CONFIG_PACKAGE_luci-app-transmission=y
           # CONFIG_PACKAGE_luci-app-usb-printer=y
           CONFIG_PACKAGE_luci-app-dockerman=y
           CONFIG_PACKAGE_luci-app-unblockmusic=y
           # CONFIG_PACKAGE_luci-app-cpufreq=y
-          CONFIG_PACKAGE_luci-app-mwan3helper=y
+          # CONFIG_PACKAGE_luci-app-mwan3helper=y
           CONFIG_PACKAGE_luci-app-airplay2=y
           CONFIG_PACKAGE_luci-app-music-remote-center=y
+          CONFIG_PACKAGE_luci-app-oaf=y
           EOF
          
           # LuCI主题:
@@ -241,5 +247,5 @@ jobs:
       - name : Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware 200524
+          name: OpenWrt firmware 200526
           path: bin/targets
