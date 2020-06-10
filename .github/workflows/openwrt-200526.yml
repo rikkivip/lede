@@ -162,7 +162,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-adbyby-plus=y
           CONFIG_PACKAGE_luci-app-aria2=y
           # CONFIG_PACKAGE_luci-app-baidupcs-web=y
-          CONFIG_PACKAGE_luci-app-docker=y
+          # CONFIG_PACKAGE_luci-app-docker=y
           CONFIG_PACKAGE_luci-app-frpc=y
           # CONFIG_PACKAGE_luci-app-hd-idle=y
           # CONFIG_PACKAGE_luci-app-kodexplorer=y
@@ -243,5 +243,5 @@ jobs:
       - name : Upload artifact
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware 200526
+          name: OpenWrt firmware 200610
           path: bin/targets
