@@ -41,6 +41,7 @@ jobs:
           sudo -E apt-get -y install build-essential asciidoc binutils bzip2 gawk gettext git libncurses5-dev libz-dev patch python3 unzip zlib1g-dev lib32gcc1 libc6-dev-i386 subversion flex uglifyjs gcc-multilib g++-multilib p7zip p7zip-full msmtp libssl-dev texinfo libglib2.0-dev xmlto qemu-utils upx libelf-dev autoconf automake libtool autopoint device-tree-compiler antlr3 gperf
           sudo -E apt-get -y autoremove --purge
           sudo -E apt-get clean
+          
           df -h
       
       - name: 自定义插件主题
@@ -172,7 +173,7 @@ jobs:
           CONFIG_PACKAGE_luci-app-music-remote-center=y
           # CONFIG_PACKAGE_luci-app-oaf=y
           CONFIG_PACKAGE_luci-app-diskman=y
-          # CONFIG_PACKAGE_luci-app-frps=y
+          CONFIG_PACKAGE_luci-app-frps=y
           CONFIG_PACKAGE_luci-app-nfs=y
           EOF
          
@@ -208,19 +209,34 @@ jobs:
           sed -i 's/^[ \t]*//g' ./.config
           make defconfig
       
-      - name: Download package source code
+      - name: Make download
         run: |
-          make download -j8
-          find dl -size -1024c -exec ls -l {} \;
-          find dl -size -1024c -exec rm -f {} \;
-      
+          make download -j8 || make download -j1 V=s
+          find ./dl/ -size -1024c -exec rm -f {} \;
+          df -h
+     
       - name: Compile firmware
         run: |
-          echo -e "$(nproc) thread build."
-          make -j$(nproc) V=s
+          make -j$(nproc) || make -j1 V=s
+          echo "======================="
+          echo "Space usage:"
+          echo "======================="
+          df -h
+          echo "======================="
+          du -h ./ --max-depth=1
+          du -h /mnt/openwrt/ --max-depth=1 || true
       
-      - name : Upload artifact
+      - name: Prepare artifact
+        run: find ./bin/targets/ -type d -name "packages" | xargs rm -rf {}
+
+      - name: Upload config.seed
         uses: actions/upload-artifact@master
         with:
-          name: OpenWrt firmware 200628
-          path: bin/targets
+          name: config.seed
+          path: ./bin/targets/*/*/config.seed
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@master
+        with:
+          name: OpenWrt_firmware 200628
+          path: ./bin/targets/
