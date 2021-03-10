@@ -15,7 +15,7 @@ PKG_RELEASE:=4
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL:=https://github.com/semigodking/redsocks.git
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_VERSION:=53cad23a14afdd5f61a0542615beb7f4d98be728
+PKG_SOURCE_VERSION:=d94c245ea47859cda5b4b7373308589206b97bdc
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION)-$(PKG_SOURCE_VERSION).tar.gz
 PKG_MAINTAINER:=semigodking <semigodking@gmail.com>
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)/$(BUILD_VARIANT)/$(PKG_NAME)-$(PKG_VERSION)
@@ -25,6 +25,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/redsocks2
 	SECTION:=net
 	CATEGORY:=Network
+	SUBMENU:=Web Servers/Proxies
 	TITLE:=Redirect any TCP connection to a SOCKS or HTTPS proxy server
 	URL:=https://github.com/semigodking/redsocks
 	DEPENDS:=+libevent2 +libopenssl
